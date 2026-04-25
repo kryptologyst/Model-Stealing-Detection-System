@@ -1,0 +1,118 @@
+# Model Stealing Detection Configuration
+
+# Data generation parameters
+data:
+  n_legitimate: 1000
+  n_stealing: 200
+  n_features: 10
+  seed: 42
+  strategies:
+    - "exhaustive"
+    - "adversarial"
+    - "systematic"
+
+# Feature extraction parameters
+features:
+  n_bins: 10
+  window_size: 10
+  scale_features: true
+
+# Model parameters
+models:
+  entropy_detector:
+    threshold: 2.0
+    n_bins: 10
+  
+  isolation_forest:
+    contamination: 0.1
+    random_state: 42
+  
+  one_class_svm:
+    nu: 0.1
+    kernel: "rbf"
+    gamma: "scale"
+  
+  random_forest:
+    n_estimators: 100
+    random_state: 42
+  
+  neural_network:
+    input_dim: 50  # Will be set dynamically
+    hidden_dims: [64, 32]
+    dropout_rate: 0.2
+    learning_rate: 0.001
+    epochs: 100
+    batch_size: 32
+
+# Defense system parameters
+defenses:
+  rate_limiter:
+    max_requests_per_minute: 60
+    max_requests_per_hour: 1000
+    max_requests_per_day: 10000
+  
+  query_deduplicator:
+    max_duplicates: 5
+    time_window: 3600
+  
+  response_randomizer:
+    noise_level: 0.1
+    random_seed: 42
+
+# Evaluation parameters
+evaluation:
+  test_size: 0.2
+  random_state: 42
+  cv_folds: 5
+  metrics:
+    - "accuracy"
+    - "precision"
+    - "recall"
+    - "f1_score"
+    - "roc_auc"
+    - "pr_auc"
+    - "precision_at_10"
+    - "precision_at_50"
+    - "precision_at_100"
+
+# Visualization parameters
+visualization:
+  figsize: [10, 8]
+  dpi: 300
+  style: "default"
+  save_plots: true
+  output_dir: "assets/plots"
+
+# Logging parameters
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "model_stealing_detection.log"
+  directory: "logs"
+
+# Device configuration
+device:
+  use_cuda: true
+  use_mps: true
+  fallback_to_cpu: true
+
+# Privacy and security
+privacy:
+  hash_ips: true
+  hash_emails: true
+  hash_usernames: true
+  remove_pii: true
+  anonymize_data: true
+
+# Demo configuration
+demo:
+  streamlit:
+    page_title: "Model Stealing Detection"
+    page_icon: "🛡️"
+    layout: "wide"
+    initial_sidebar_state: "expanded"
+  
+  fastapi:
+    host: "0.0.0.0"
+    port: 8000
+    reload: true
